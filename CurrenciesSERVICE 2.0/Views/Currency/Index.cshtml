@@ -1,0 +1,59 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Bootstrap4.Core
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<CurrencyModel>
+
+@{
+    ViewData["Title"] = "Курс валют";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Курс валют</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Знак валюты
+            </th>
+            <th>
+                Номинал
+            </th>
+            <th>
+                Название валюты
+            </th>
+            <th>
+                В рублях
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharValute)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NominalValute)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameValute)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded }.ApplyBootstrap4Style())
+</div>
